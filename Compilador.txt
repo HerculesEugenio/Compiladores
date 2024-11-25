@@ -1,0 +1,20 @@
+grammar DSLive;
+
+inicio:  criarPilha funcao EOF;
+funcao: criarPilha | apagarPilha | push | pop 
+        | get_Top | transfer;
+
+criarPilha:('Create'|'create') pilha;
+apagarPilha: ('Delete ' | 'delete') pilha;
+pilha : nome ;
+nome: TOKEN ;
+push : 'Push' token;
+pop : 'Pop' pilha;
+get_Top : 'Get_Top' pilha;
+transfer : push get_Top 'in' pilha;
+token : TOKEN;
+
+TOKEN   : [a-zA-Z0-9][a-zA-Z0-9]?[a-zA-Z0-9]?[a-zA-Z0-9]?
+            [a-zA-Z0-9]?[a-zA-Z0-9]?[a-zA-Z0-9]?;
+NEWLINE : '\r'? '\n' ;  
+WS      : [ \t]+ -> skip ;
